@@ -73,37 +73,45 @@ class NCurse : public AGraphic
             
             switch(c)
             {	
-                case KEY_UP:
-                    // c = 1;
+                case 122:
+                    c = INPUT_UP;
                     break;
-                case KEY_DOWN:
-                    // c = -1;
+                case 100:
+                    c = INPUT_RIGHT;
+                    break;
+                case 115:
+                    c = INPUT_DOWN;
+                    break;
+                case 113:
+                    c = INPUT_LEFT;
                     break;
                 case 10: //enter
                     // c = -42;
                     break;
                 default:
-                    mvprintw(0, 0, "Charcter pressed is = %3d Hopefully it can be printed as '%c'", c, c);
                     refresh();
                     break;
             }
-            
+            mvprintw(0, 0, "Charcter pressed is = %3d Hopefully it can be printed as '%d'", c, c);
+            refresh();
             return c;
         }
 
         void Render(vector<vector<int>> _map, int _startPosX, int _startPosY)
         {
+            (void)_startPosY;
+
             // cout << input << endl;
             // temporaire
             // box(this->win, 0, 0);
             int x = 0;
             int y = 0;
             int startX = _startPosX; //offset ? 
-            int startY = _startPosY; //offset ?
+            int startY = int(_map.size()); //offset ?
             int elem;
 
             wborder(this->win, 0, 0, 0, 0, 0, 0, 0, 0);
-            mvprintw(2, 0, "Charcter pressed is = %3d Hopefully it can be printed as '%d'", _map[1][_map[1].size()], _map[1][_map[1].size()]);
+            // mvprintw(2, 0, "Charcter pressed is = %3d Hopefully it can be printed as '%d'", _map[1][_map[1].size()], _map[1][_map[1].size()]);
 
             while (y < int(_map.size()))
             {
@@ -113,7 +121,7 @@ class NCurse : public AGraphic
                     elem = _map[y][x];
 
                     // NB: operator[] of maps and hash_map is not accecible in const fcts
-                    mvwprintw(this->win, startY + y, startX + x, "%c", this->convertor[elem]);
+                    mvwprintw(this->win, startY - y, startX + x, "%c", this->convertor[elem]);
                     x++;
                 }
                 y++;

@@ -1,26 +1,19 @@
 #include <iostream>
 #include <vector>
+#include "state.h"
 
 using namespace std;
-
-#define EMPTY 0
-#define PLAYER_UP 1
-#define PLAYER_RIGHT 2
-#define PLAYER_LEFT 3
-#define PLAYER_DOWN 4
-#define PLAYER_BODY 5
-#define BONUS 10
-#define ENNEMY 11
-#define TOP_ROW 50
-#define SIDE_ROW 51
-#define CORNER 52
 
 class AGame
 {
     protected:
+        // vector<AEntity> entities;
         vector<vector<int>> map;
+
+        // the origin is the bottom LEFT Corner of the map
         int startX;
         int startY;
+
         int width;
         int height;
 
@@ -33,7 +26,17 @@ class AGame
         {
         }
 
+        // give basic coordinate to Entities
+        // draw the base of the map
         virtual void InitGame() = 0;
+
+        // pass the input to the entities (like player)
+        // update the position of all entities
+        // handle collision ?
+        virtual void GameUpdate(int _inputs) = 0;
+
+        // get coordinate from entities and palce them on the board
+        virtual void BoardUpdate() = 0;
 
         vector<vector<int>> &getMap()
         {

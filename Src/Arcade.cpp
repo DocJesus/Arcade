@@ -21,9 +21,11 @@ void Arcade::InitGame()
 {
     int height, width;
 
+    this->graphic->InitScreen();
     this->graphic->getWinSize(&height, &width);
     this->game = make_unique<BrickBreaker>(height, width);
     this->game->InitGame();
+    this->graphic->Render(this->game->getMap(), this->game->getStartPosX(), this->game->getStartPosY());
 }
 
 void Arcade::Update()
@@ -33,16 +35,13 @@ void Arcade::Update()
 
     try
     {
-        this->graphic->InitScreen();
-        this->InitGame();
-        this->graphic->Render(this->game->getMap(), this->game->getStartPosX(), this->game->getStartPosY());
-
         while (!stop)
         {
             input = this->graphic->GetInputs();
             if (input == 10)
                 stop = 1;
-            // this->game.GameUpdate(this->get_inputs());
+            this->game->GameUpdate(input);
+            this->game->BoardUpdate();
             this->graphic->Render(this->game->getMap(), this->game->getStartPosX(), this->game->getStartPosY());
         }
     }
