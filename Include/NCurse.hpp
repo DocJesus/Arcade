@@ -13,6 +13,7 @@ class NCurse : public AGraphic
         int starty;
         vector<string> choices;
         int n_choices;
+        unordered_map<int, char> convertor;
 
     public:
         int tmp;
@@ -21,16 +22,22 @@ class NCurse : public AGraphic
         {
             cout << "initNcurse Graphical Library" << endl;
             tmp = 0;
-            startx = (140 - WIDTH) / 2;
-            starty = (50 - HEIGHT) / 2;
-            choices = { 
-                    "Choice 1",
-                    "Choice 2",
-                    "Choice 3",
-                    "Choice 4",
-                    "Exit",
-                };
-            n_choices = choices.size();
+            startx = 10;
+            starty = 5;
+
+            convertor[TOP_ROW] = '-';
+            convertor[SIDE_ROW] = '|';
+            convertor[CORNER] = '+';
+            convertor[BONUS] = 'o';
+            convertor[EMPTY] = ' ';
+
+            convertor[PLAYER_BODY] = '=';
+            convertor[PLAYER_UP] = '^';
+            convertor[PLAYER_DOWN] = 'v';
+            convertor[PLAYER_LEFT] = '<';
+            convertor[PLAYER_RIGHT] = '>';
+
+            convertor[ENNEMY] = 'X';
         }
         virtual ~NCurse() {}
 
@@ -48,6 +55,7 @@ class NCurse : public AGraphic
             this->setWinSize(HEIGHT, WIDTH);
 
             keypad(this->win, TRUE);
+            refresh();
          }
  
         void CloseScreen()
@@ -59,7 +67,7 @@ class NCurse : public AGraphic
             cout << "Ncurse close screen" << endl;
         }
 
-        int GetInputs()
+        int GetInputs() const
         {
             int c = wgetch(this->win);
             
@@ -83,7 +91,7 @@ class NCurse : public AGraphic
             return c;
         }
 
-        void Render(vector<vector<int>> _map, int _startPosX, int _startPosY) const
+        void Render(vector<vector<int>> _map, int _startPosX, int _startPosY)
         {
             // cout << input << endl;
             // temporaire
@@ -103,33 +111,14 @@ class NCurse : public AGraphic
                 while (x < int(_map[y].size()))
                 {
                     elem = _map[y][x];
-                    mvwprintw(this->win, startY + y, startX + x, "%d", elem);
+
+                    // NB: operator[] of maps and hash_map is not accecible in const fcts
+                    mvwprintw(this->win, startY + y, startX + x, "%c", this->convertor[elem]);
                     x++;
                 }
                 y++;
             }
             
-            // mvprintw(24, 0, "Charcter pressed is = %3d Hopefully it can be printed as '%c'", input, input);
-            // mvprintw(0, 0, "Use arrow keys to go up and down, Press enter to select a choice");
-            /*
-            int i;
-            int highlight = 0;
-
-            x = 2;
-            y = 2;
-            for(i = 0; i < this->n_choices; ++i)
-            {	
-                if(highlight == i + 1)
-                {	
-                    wattron(this->win, A_REVERSE); 
-                    mvwprintw(this->win, y, x, "%s", this->choices[i]);
-                    wattroff(this->win, A_REVERSE);
-                }
-                else
-                    mvwprintw(this->win, y, x, "%s", this->choices[i]);
-                ++y;
-            }
-            */
             wrefresh(this->win);
             refresh();
         }

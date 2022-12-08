@@ -23,6 +23,7 @@ void Arcade::InitGame()
 
     this->graphic->getWinSize(&height, &width);
     this->game = make_unique<BrickBreaker>(height, width);
+    this->game->InitGame();
 }
 
 void Arcade::Update()
@@ -34,6 +35,8 @@ void Arcade::Update()
     {
         this->graphic->InitScreen();
         this->InitGame();
+        this->graphic->Render(this->game->getMap(), this->game->getStartPosX(), this->game->getStartPosY());
+
         while (!stop)
         {
             input = this->graphic->GetInputs();
