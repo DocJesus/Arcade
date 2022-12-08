@@ -43,6 +43,7 @@ void Arcade::Update()
             this->game->GameUpdate(input);
             this->game->BoardUpdate();
             this->graphic->Render(this->game->getMap(), this->game->getStartPosX(), this->game->getStartPosY());
+            usleep(100000);
         }
     }
     catch (const exception& _e)

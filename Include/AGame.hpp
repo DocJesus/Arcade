@@ -1,14 +1,15 @@
 #include <iostream>
 #include <vector>
 #include "state.h"
+#include "AEntity.hpp"
 
 using namespace std;
 
 class AGame
 {
     protected:
-        // vector<AEntity> entities;
         vector<vector<int>> map;
+        vector<vector<shared_ptr<AEntity>>> entities;
 
         // the origin is the bottom LEFT Corner of the map
         int startX;

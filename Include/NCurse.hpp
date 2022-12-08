@@ -26,6 +26,7 @@ class NCurse : public AGraphic
             starty = 5;
 
             convertor[TOP_ROW] = '-';
+            convertor[BOT_ROW] = '-';
             convertor[SIDE_ROW] = '|';
             convertor[CORNER] = '+';
             convertor[BONUS] = 'o';
@@ -38,6 +39,7 @@ class NCurse : public AGraphic
             convertor[PLAYER_RIGHT] = '>';
 
             convertor[ENNEMY] = 'X';
+            this->setWinSize(HEIGHT, WIDTH);
         }
         virtual ~NCurse() {}
 
@@ -54,6 +56,7 @@ class NCurse : public AGraphic
             this->win = newwin(HEIGHT, WIDTH, starty, startx);
             this->setWinSize(HEIGHT, WIDTH);
 
+            nodelay(this->win, true);
             keypad(this->win, TRUE);
             refresh();
          }
@@ -69,21 +72,23 @@ class NCurse : public AGraphic
 
         int GetInputs() const
         {
+            // noecho();
+            // cbreak();
             int c = wgetch(this->win);
             
             switch(c)
             {	
                 case 122:
-                    c = INPUT_UP;
+                    c = UP;
                     break;
                 case 100:
-                    c = INPUT_RIGHT;
+                    c = RIGHT;
                     break;
                 case 115:
-                    c = INPUT_DOWN;
+                    c = DOWN;
                     break;
                 case 113:
-                    c = INPUT_LEFT;
+                    c = LEFT;
                     break;
                 case 10: //enter
                     // c = -42;

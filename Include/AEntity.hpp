@@ -1,6 +1,11 @@
+#include <tuple>
 #include "state.h"
 
+#ifndef H_AEntity
+#define H_AEntity
+
 using namespace std;
+class AGame;
 
 class AEntity
 {
@@ -13,16 +18,18 @@ class AEntity
         int direction;
         int type;
 
+        shared_ptr<AGame> gameMaster;
+
         bool collision; // useless ?
         bool moved; // useless ?
 
     public:
         // use the type defined in state.h
-        AEntity(int _type, int _limitY, int _limitX)
+        AEntity(int _type, int _coordY, int _coordX)
         {
             this->type = _type;
-            this->limitY = _limitY;
-            this->limitX = _limitX;
+            this->coordY = _coordY;
+            this->coordX = _coordX;
         }
         virtual ~AEntity()
         {
@@ -34,7 +41,8 @@ class AEntity
         // move the entity if inertia
         virtual void Update() = 0;
         // validate the input passed and move
-        virtual void move(int _input) = 0;
+        // return the coordinate where the Entity was (Y,X)
+        virtual tuple<int, int> move(int _input = 0) = 0;
 
 
         void setCol(bool _isCol)
@@ -64,3 +72,5 @@ class AEntity
             return this->direction;
         }
 };
+
+#endif
