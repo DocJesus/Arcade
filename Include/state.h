@@ -15,12 +15,12 @@
 
 // direction
 #define UP 20
-#define RIGHT 21
-#define DOWN 22
+#define DOWN 21
+#define RIGHT 22
 #define LEFT 23
 #define UP_LEFT 24
-#define UP_RIGHT 25
-#define DOWN_RIGH 26
+#define DOWN_RIGH 25
+#define UP_RIGHT 26
 #define DOWN_LEFT 27
 
 // environment

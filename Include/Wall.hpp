@@ -3,10 +3,10 @@
 class Wall : public AEntity
 {
     public:
-        Wall() : AEntity(TOP_ROW, 0, 0)
+        Wall() : AEntity(TOP_ROW, nullptr, 0, 0)
         {
         }
-        Wall(const int &type, const int &_coordY, const int &_coordX) : AEntity(type, _coordY, _coordX)
+        Wall(const int &type, AGame *_gameMaster, const int &_coordY, const int &_coordX) : AEntity(type, _gameMaster, _coordY, _coordX)
         {
         }
         virtual ~Wall()
@@ -14,17 +14,19 @@ class Wall : public AEntity
 
         }
 
-        // move the entity if inertia ?
         virtual void Update()
         {
 
         }
 
-        virtual tuple<int, int> move(int _input = 0)
+        // Walls don't move
+        void Move(const int &_input = 0)
         {
             (void)_input;
-            tuple<int, int> norme;
-            return norme;
+        }
+        void UpdatePos()
+        {
+
         }
 
 };

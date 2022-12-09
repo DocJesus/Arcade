@@ -34,14 +34,21 @@ class AGame
         // pass the input to the entities (like player)
         // update the position of all entities
         // handle collision ?
-        virtual void GameUpdate(int _inputs) = 0;
+        virtual void GameUpdate(const int &_inputs) = 0;
 
         // get coordinate from entities and palce them on the board
-        virtual void BoardUpdate() = 0;
+        virtual void DrawBoard() = 0;
+
+        // move an Entity through the entities vector
+        virtual void EntityMoved(const int &_prevY, const int &_prevX, const int &_nextY, const int &_nextX) = 0;
 
         vector<vector<int>> &getMap()
         {
             return this->map;
+        }
+        shared_ptr<AEntity> getEntityAt(const int &_coordY, const int &_coordX) const
+        {
+            return this->entities[_coordY][_coordX];
         }
 
         const int &getStartPosX() const

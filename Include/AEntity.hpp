@@ -12,22 +12,17 @@ class AEntity
     protected:
         int coordX;
         int coordY;
-        int limitX;
-        int limitY;
-        int inertia;
-        int direction;
         int type;
 
-        shared_ptr<AGame> gameMaster;
-
-        bool collision; // useless ?
-        bool moved; // useless ?
+        int direction; // for animated Entity only // subclass for wall and/or animated ?
+        AGame *gameMaster; // for animated Entity only
 
     public:
         // use the type defined in state.h
-        AEntity(int _type, int _coordY, int _coordX)
+        AEntity(int _type, AGame *_gameMaster, int _coordY, int _coordX)
         {
             this->type = _type;
+            this->gameMaster = _gameMaster;
             this->coordY = _coordY;
             this->coordX = _coordX;
         }
@@ -38,17 +33,14 @@ class AEntity
 
         // virtual void resetPosition(int _coordY, int _coordX) = 0;
 
+        // only for animated Entity ?
         // move the entity if inertia
         virtual void Update() = 0;
-        // validate the input passed and move
-        // return the coordinate where the Entity was (Y,X)
-        virtual tuple<int, int> move(int _input = 0) = 0;
+        // validate the input passed, move and handle Collisions
+        virtual void Move(const int &_input = 0) = 0;
+        // update the position of the entity
+        virtual void UpdatePos() = 0;
 
-
-        void setCol(bool _isCol)
-         {
-             this->collision = _isCol;
-         }
         void setYX(int _newY, int _newX)
         {
             this->coordY = _newY;

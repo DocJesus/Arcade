@@ -41,7 +41,6 @@ void Arcade::Update()
             if (input == 10)
                 stop = 1;
             this->game->GameUpdate(input);
-            this->game->BoardUpdate();
             this->graphic->Render(this->game->getMap(), this->game->getStartPosX(), this->game->getStartPosY());
             usleep(100000);
         }

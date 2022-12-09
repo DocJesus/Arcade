@@ -14,7 +14,7 @@ class BrickBreaker : public AGame
         {
             cout << "init BrickBreaker Game" << endl;
         }
-        BrickBreaker(int _height, int _width)
+        BrickBreaker(const int &_height, const int &_width)
         {
             cout << "building BrickBreaker width = " << _width;
             cout << "height = " << _height << endl;
@@ -40,7 +40,7 @@ class BrickBreaker : public AGame
                 {
                     while (x < this->width)
                     {
-                        this->entities[y][x] = make_shared<Wall>(BOT_ROW, y, x);
+                        this->entities[y][x] = make_shared<Wall>(BOT_ROW, this, y, x);
                         x++;
                     }
                 }
@@ -48,30 +48,30 @@ class BrickBreaker : public AGame
                 {
                     while (x < this->width)
                     {
-                        this->entities[y][x] = make_shared<Wall>(TOP_ROW, y, x);
+                        this->entities[y][x] = make_shared<Wall>(TOP_ROW, this, y, x);
                         x++;
                     }
                 }
                 else
                 {
-                    this->entities[y][0] = make_shared<Wall>(SIDE_ROW, y, 0);
-                    this->entities[y][this->width - 1] = make_shared<Wall>(SIDE_ROW, y, this->width - 1);
+                    this->entities[y][0] = make_shared<Wall>(SIDE_ROW, this, y, 0);
+                    this->entities[y][this->width - 1] = make_shared<Wall>(SIDE_ROW, this, y, this->width - 1);
                 }
                 y++;
             }
 
-            this->entities[0][0] = make_shared<Wall>(CORNER, 0, 0);
-            this->entities[this->height - 1][this->width - 1] = make_shared<Wall>(CORNER, this->height - 1, this->width - 1);
-            this->entities[0][this->width - 1] = make_shared<Wall>(CORNER, 0, this->width - 1);
-            this->entities[this->height - 1][0] = make_shared<Wall>(CORNER, this->height - 1, 0);
+            this->entities[0][0] = make_shared<Wall>(CORNER, this, 0, 0);
+            this->entities[this->height - 1][this->width - 1] = make_shared<Wall>(CORNER, this, this->height - 1, this->width - 1);
+            this->entities[0][this->width - 1] = make_shared<Wall>(CORNER, this, 0, this->width - 1);
+            this->entities[this->height - 1][0] = make_shared<Wall>(CORNER, this, this->height - 1, 0);
 
 
             // creating the player
-            this->player = make_shared<BrickPlayer>(1, this->width / 2);
+            this->player = make_shared<BrickPlayer>(this, 1, this->width / 2);
             this->entities[1][this->width / 2] = this->player;
 
             // creating the bullet
-            this->bullet = make_shared<BrickProjectile>(2, this->width / 2);
+            this->bullet = make_shared<BrickProjectile>(this, 2, this->width / 2);
             this->entities[2][this->width / 2] = this->bullet;
 
             // creating the ennemies
@@ -87,8 +87,6 @@ class BrickBreaker : public AGame
 
         void InitGame()
         {
-
-            // Giving entities their base coordinates
             // (RE)Placing Player
             this->player->setYX(1, this->width / 2);
 
@@ -117,12 +115,15 @@ class BrickBreaker : public AGame
             }
             */
 
-           this->BoardUpdate();
+           this->DrawBoard();
         }
 
-        void GameUpdate(int _inputs)
+        void GameUpdate(const int &_inputs)
         {
             cout << _inputs << endl;
+
+            this->player->Move(_inputs);
+            this->bullet->Move();
 
             /*
             tuple<int, int> prevCoord;
@@ -133,7 +134,6 @@ class BrickBreaker : public AGame
             this->map[std::get<0>(prevCoord)][std::get<1>(prevCoord)] = EMPTY;
 
             // update la positon des bonus (si il y a)
-            prevCoord = this->bullet.move();
             this->map[std::get<0>(prevCoord)][std::get<1>(prevCoord)] = EMPTY;
 
             // update la positon des ennemies (si il y a)
@@ -143,7 +143,7 @@ class BrickBreaker : public AGame
             */
         }
 
-        void BoardUpdate()
+        void DrawBoard()
         {
             int x = 0;
             int y = 0;
@@ -152,6 +152,7 @@ class BrickBreaker : public AGame
                 x = 0;
                 while (x < this->width)
                 {
+                    this->map[y][x] = EMPTY;
                     if (this->entities[y][x] != nullptr)
                         this->map[y][x] = this->entities[y][x]->getType();
                     else
@@ -184,4 +185,14 @@ class BrickBreaker : public AGame
             */
 
         }
+
+        void EntityMoved(const int &_prevY, const int &_prevX, const int &_nextY, const int &_nextX)
+        {
+            this->entities[_nextY][_nextX] = this->entities[_prevY][_prevX];
+            this->entities[_prevY][_prevX] = nullptr;
+
+            this->map[_nextY][_nextX] = this->entities[_nextY][_nextX]->getType();
+            this->map[_prevY][_prevX] = EMPTY;           
+        }
+
 };

@@ -2,12 +2,14 @@
 
 class BrickPlayer : public AEntity
 {
+    private:
+        int input;
     public:
-        BrickPlayer() : AEntity(PLAYER_UP, 0, 0)
+        BrickPlayer() : AEntity(PLAYER_UP, nullptr, 0, 0)
         {
             this->direction = PLAYER_UP;
         }
-        BrickPlayer(const int &_coordY, const int &_coordX) : AEntity(PLAYER_UP, _coordY, _coordX)
+        BrickPlayer(AGame *_gameMaster, const int &_coordY, const int &_coordX) : AEntity(PLAYER_UP, _gameMaster, _coordY, _coordX)
         {
             this->direction = PLAYER_UP;
         }
@@ -23,25 +25,45 @@ class BrickPlayer : public AEntity
         }
 
         // validate the input passed and move
-        virtual tuple<int, int> move(int _input = 0)
+        void Move(const int &_input = 0)
         {
-            tuple<int, int> prevCoord(this->coordY, this->coordX);
+            int prevY = this->coordY;
+            int prevX = this->coordX;
+            this->input = _input;
 
-            switch (_input)
+            this->UpdatePos();
+            shared_ptr<AEntity> next_tile = gameMaster->getEntityAt(this->coordY, this->coordX);
+            if (next_tile == nullptr)
+            {
+                gameMaster->EntityMoved(prevY, prevX, this->coordY, this->coordX);
+            }
+            else
+            {
+                this->coordY = prevY;
+                this->coordX = prevX;
+            }
+            
+            /*
+            else if (next_tile == type(BrickProjectile))
+            {
+
+            }
+            */
+        }
+
+        void UpdatePos()
+        {
+            switch (this->input)
             {
                 case RIGHT: // move right
-                    if (this->coordX < this->limitX)
-                        this->coordX += 1;
+                    this->coordX += 1;
                     break;
                 case LEFT: // move left
-                    if (this->coordX > 1)
-                        this->coordX -= 1;
+                    this->coordX -= 1;
                     break;
                 default:
                     break;
             }
-
-            return prevCoord;
         }
 
 };
