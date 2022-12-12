@@ -1,9 +1,13 @@
 #include <iostream>
 #include <vector>
 #include "state.h"
-#include "AEntity.hpp"
+// #include "AEntity.hpp"
+
+#ifndef H_AGame
+#define H_AGame
 
 using namespace std;
+class AEntity;
 
 class AGame
 {
@@ -42,6 +46,12 @@ class AGame
         // move an Entity through the entities vector
         virtual void EntityMoved(const int &_prevY, const int &_prevX, const int &_nextY, const int &_nextX) = 0;
 
+        void KillEntity(const int &_Y, const int &_X)
+        {
+            this->entities[_Y][_X] = nullptr;
+            this->map[_Y][_X] = EMPTY;
+        }
+
         vector<vector<int>> &getMap()
         {
             return this->map;
@@ -70,4 +80,14 @@ class AGame
             *_height = this->height;
             *_width = this->width;
         }
+        const int &getHeigh() const
+        {
+            return this->height;
+        }
+        const int &getWidth() const
+        {
+            return this->width;
+        }
 };
+
+#endif

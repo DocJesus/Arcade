@@ -14,11 +14,6 @@ class Wall : public AEntity
 
         }
 
-        virtual void Update()
-        {
-
-        }
-
         // Walls don't move
         void Move(const int &_input = 0)
         {
@@ -27,6 +22,9 @@ class Wall : public AEntity
         void UpdatePos()
         {
 
+        }
+        void Die()
+        {
         }
 
 };

@@ -2,12 +2,15 @@
 #include "BrickPlayer.hpp"
 #include "BrickProjectile.hpp"
 #include "Wall.hpp"
+#include "BrickEnnemy.hpp"
+#include "AEntity.hpp"
+#include "BrickPlayerBody.hpp"
 
 class BrickBreaker : public AGame
 {
     private:
-        shared_ptr<AEntity> player;
-        shared_ptr<AEntity> bullet;
+        shared_ptr<BrickPlayer> player;
+        shared_ptr<BrickProjectile> bullet;
 
     public:
         BrickBreaker()
@@ -68,13 +71,39 @@ class BrickBreaker : public AGame
 
             // creating the player
             this->player = make_shared<BrickPlayer>(this, 1, this->width / 2);
-            this->entities[1][this->width / 2] = this->player;
+            this->entities[1][this->player->getPosX()] = this->player;
+
+            // placing the body of the player
+            vector<shared_ptr<AEntity>> playerLeftWing = player->getLeftWing();
+            vector<shared_ptr<AEntity>> playerRightWing = player->getRightWing();
+            x = 0;
+            while (x < this->player->getWidth() / 2)
+            {
+                cout << playerRightWing[x]->getType() << endl;
+                this->entities[playerRightWing[x]->getPosY()][playerRightWing[x]->getPosX()] = playerRightWing[x];
+
+                cout << playerLeftWing[x]->getType() << endl;
+                this->entities[playerLeftWing[x]->getPosY()][playerLeftWing[x]->getPosX()] = playerLeftWing[x];
+
+                x++;
+            }
 
             // creating the bullet
             this->bullet = make_shared<BrickProjectile>(this, 2, this->width / 2);
             this->entities[2][this->width / 2] = this->bullet;
 
             // creating the ennemies
+            y = this->height / 2;
+            while (y < this->height - 1)
+            {
+                x = 1;
+                while (x < this->width - 1)
+                {
+                    this->entities[y][x] = make_shared<BrickEnnemy>(this, y, x);
+                    x++;
+                }
+                y++;
+            }
 
 
             vector<vector<int>> vec(this->height, vector<int>(this->width, EMPTY));
@@ -101,21 +130,10 @@ class BrickBreaker : public AGame
             // this->map[this->height - 3][this->width / 2] = BONUS;
 
             // Placing Bricks
-            /*
-            y = 1;
-            while (y < this->height / 2)
-            {
-                x = 1;
-                while (x < this->width - 1)
-                {
-                    this->map[y][x] = ENNEMY;
-                    x++;
-                }
-                y++;
-            }
-            */
-
-           this->DrawBoard();
+   
+            // special
+            this->player->Move(RIGHT);
+            this->DrawBoard();
         }
 
         void GameUpdate(const int &_inputs)
@@ -188,11 +206,21 @@ class BrickBreaker : public AGame
 
         void EntityMoved(const int &_prevY, const int &_prevX, const int &_nextY, const int &_nextX)
         {
-            this->entities[_nextY][_nextX] = this->entities[_prevY][_prevX];
-            this->entities[_prevY][_prevX] = nullptr;
+            // cout << "GGGGGGGGGGGGGGGG" << endl;
 
-            this->map[_nextY][_nextX] = this->entities[_nextY][_nextX]->getType();
-            this->map[_prevY][_prevX] = EMPTY;           
+            if (_prevY != _nextY || _prevX != _nextX)
+            {
+                this->entities[_nextY][_nextX] = this->entities[_prevY][_prevX];
+                this->entities[_prevY][_prevX] = nullptr;
+
+                // cout << "FFFFFFFFFFFFFFFFF" << endl;
+
+                this->map[_nextY][_nextX] = this->entities[_nextY][_nextX]->getType();
+                this->map[_prevY][_prevX] = EMPTY;
+
+                // cout << "HHHHHHHHHHHHHHHHH" << endl;
+            }
         }
+
 
 };

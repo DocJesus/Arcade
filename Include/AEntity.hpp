@@ -1,4 +1,5 @@
 #include <tuple>
+#include "AGame.hpp"
 #include "state.h"
 
 #ifndef H_AEntity
@@ -35,18 +36,31 @@ class AEntity
 
         // only for animated Entity ?
         // move the entity if inertia
-        virtual void Update() = 0;
+        // virtual void Update() = 0;
         // validate the input passed, move and handle Collisions
         virtual void Move(const int &_input = 0) = 0;
         // update the position of the entity
         virtual void UpdatePos() = 0;
 
-        void setYX(int _newY, int _newX)
+        // killing the entity()
+        virtual void Die()
+        {
+            this->gameMaster->KillEntity(this->coordY, this->coordX);
+        }
+
+        void setYX(const int &_newY, const int &_newX)
         {
             this->coordY = _newY;
             this->coordX = _newX;
         }
-
+        void setY(const int &_newY)
+        {
+            this->coordY = _newY;
+        }
+        void setX(const int &_newX)
+        {            
+            this->coordX = _newX;
+        }
         const int &getPosX() const
         {
             return this->coordX;
@@ -59,10 +73,11 @@ class AEntity
         {
             return this->type;
         }
-        const int &getDirection() const
+        const AGame *getMaster() const
         {
-            return this->direction;
+            return this->gameMaster;
         }
+
 };
 
 #endif

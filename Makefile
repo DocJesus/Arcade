@@ -1,6 +1,6 @@
 SRC = Src/Arcade.cpp main.cpp
 
-CXXFLAGS += -std=c++17 -Werror -Wextra -Wall -I./Include
+CXXFLAGS += -std=c++17 -Werror -Wextra -Wall -I./Include -I./Include/BrickBreaker -I./Include/Ncurses
 LOADLIBES = -lm
 
 OBJ = $(SRC:.cpp=.o)
