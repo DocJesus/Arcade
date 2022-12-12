@@ -12,8 +12,8 @@
 #define ENNEMY 11
 #define PLAYER 12
 #define PLAYER_BODY 13
-#define PLAYER_BODY_RIGHT 13
-#define PLAYER_BODY_LEFT 13
+#define PLAYER_BODY_RIGHT 14
+#define PLAYER_BODY_LEFT 15
 
 // direction
 #define UP 20
@@ -21,8 +21,8 @@
 #define RIGHT 22
 #define LEFT 23
 #define UP_LEFT 24
-#define DOWN_LEFT 25
-#define UP_RIGHT 26
+#define UP_RIGHT 25 
+#define DOWN_LEFT 26
 #define DOWN_RIGHT 27
 
 // environment

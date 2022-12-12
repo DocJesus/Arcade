@@ -2,14 +2,18 @@
 
 class BrickProjectile : public AEntity
 {
+    private:
+        int velocity;
     public:
         BrickProjectile() : AEntity(BONUS, nullptr, 0, 0)
         {
             this->direction = UP;
+            this->velocity = 1;
         }
         BrickProjectile(AGame *_gameMaster, const int &_coordY, const int &_coordX) : AEntity(BONUS, _gameMaster, _coordY, _coordX)
         {
             this->direction = UP;
+            this->velocity = 1;
         }
         virtual ~BrickProjectile()
         {
@@ -32,19 +36,40 @@ class BrickProjectile : public AEntity
             int i = 0;
             if (next_tile != nullptr && next_tile->getType() != BONUS)
             {
-                while (next_tile != nullptr && next_tile->getType() != BONUS && i < 50)
+                while (next_tile != nullptr && next_tile->getType() != BONUS && i < 5)
                 {
                     if (next_tile->getType() == ENNEMY)
                     {
                         cout << "hit an ennemy" << endl;
                         next_tile->Die();
+                        this->setVelocity(-1);
                     }
 
                     this->Ricochet();
+
+                    if (next_tile->getType() >= 50 && next_tile->getType() <= 53)
+                    {
+                        cout << "hit an Wall" << endl;
+                        // todo remove this
+                        if (this->getPosY() == 0)
+                            this->direction = UP;
+                    }
+
+                    if (next_tile->getType() == PLAYER_UP)
+                    {
+                        this->setVelocity(1);
+                        this->direction = UP;
+                    }                    
                     if (next_tile->getType() == PLAYER_BODY_LEFT)
+                    {
                         this->direction = UP_LEFT;
+                        this->setVelocity(1);
+                    }                        
                     if (next_tile->getType() == PLAYER_BODY_RIGHT)
+                    {
                         this->direction = UP_RIGHT;
+                        this->setVelocity(1);
+                    }
 
                     this->UpdatePos();
 
@@ -65,10 +90,29 @@ class BrickProjectile : public AEntity
         void Ricochet()
         {
             cout << "Ricochet" << endl;
-            if (this->direction % 2 == 0)
-                this->direction += 1;
+            if (this->velocity > 0)
+            {
+                if (this->direction == UP_RIGHT)
+                    this->direction = UP_LEFT;
+                else if (this->direction == UP_LEFT)
+                    this->direction = UP_RIGHT;
+            }
             else
-                this->direction -= 1;
+            {
+                if (this->direction == UP_RIGHT)
+                    this->direction = DOWN_LEFT;
+                else if (this->direction == UP_LEFT)
+                    this->direction = DOWN_RIGHT;                
+            }
+
+            if (this->direction == DOWN_LEFT)
+                this->direction = DOWN_RIGHT;                
+            else if (this->direction == DOWN_RIGHT)
+                this->direction = DOWN_LEFT;                
+            else if (this->direction == UP)
+                this->direction = DOWN;
+            else if (this->direction == DOWN)
+                this->direction = UP;
 
             // this->UpdatePos();
             // gameMaster->EntityMoved(prevY, prevX, this->coordY, this->coordX);
@@ -115,5 +159,10 @@ class BrickProjectile : public AEntity
             [](BrickProjectile *brick) { if (brick->getPosX() < 0) {brick->setX(1);}} (this);
             [](BrickProjectile *brick) { if (brick->getPosY() >= brick->getMaster()->getHeigh()) {brick->setY(brick->getMaster()->getHeigh() - 1);}}(this);
             [](BrickProjectile *brick) { if (brick->getPosX() >= brick->getMaster()->getWidth()) {brick->setX(brick->getMaster()->getWidth() - 1);}}(this);
+        }
+
+        void setVelocity(int _vel)
+        {
+            this->velocity = _vel;
         }
 };

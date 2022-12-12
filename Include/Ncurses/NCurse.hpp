@@ -33,6 +33,8 @@ class NCurse : public AGraphic
             convertor[EMPTY] = ' ';
 
             convertor[PLAYER_BODY] = '=';
+            convertor[PLAYER_BODY_LEFT] = '=';
+            convertor[PLAYER_BODY_RIGHT] = '=';
             convertor[PLAYER_UP] = '^';
             convertor[PLAYER_DOWN] = 'v';
             convertor[PLAYER_LEFT] = '<';
