@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include "AGraphic.hpp"
+#include	<unistd.h>
 
 #define WIDTH 120
 #define HEIGHT 40 
@@ -11,9 +12,8 @@ class NCurse : public AGraphic
         WINDOW *win;
         int startx;
         int starty;
-        vector<string> choices;
-        int n_choices;
         unordered_map<int, char> convertor;
+        vector<int> inputs;
 
     public:
         int tmp;
@@ -72,11 +72,10 @@ class NCurse : public AGraphic
             cout << "Ncurse close screen" << endl;
         }
 
-        int GetInputs() const
+        int ReadInputs() const
         {
-            // noecho();
-            // cbreak();
-            int c = wgetch(this->win);
+            int c;
+            c = wgetch(this->win);
             
             switch(c)
             {	
@@ -101,6 +100,8 @@ class NCurse : public AGraphic
             }
             mvprintw(0, 0, "Charcter pressed is = %3d Hopefully it can be printed as '%d'", c, c);
             refresh();
+
+            flushinp();
             return c;
         }
 

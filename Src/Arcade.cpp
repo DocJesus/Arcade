@@ -30,16 +30,19 @@ void Arcade::InitGame()
 
 void Arcade::Update()
 {
+    // vector<int> input;
     int input;
+
     signal(SIGINT, SignalCallbackHandler);
 
     try
     {
         while (!stop)
         {
-            input = this->graphic->GetInputs();
+            input = this->graphic->ReadInputs();
             if (input == 10)
                 stop = 1;
+
             this->game->GameUpdate(input);
             this->graphic->Render(this->game->getMap(), this->game->getStartPosX(), this->game->getStartPosY());
             usleep(100000);
