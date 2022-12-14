@@ -3,7 +3,16 @@
 int main()
 {
     Arcade arc = Arcade();
-    arc.InitGame();
-    arc.Update();
+    
+    try
+    {
+        arc.InitGame();
+        // arc.Update();
+    }
+    catch(Error &e)
+    {
+        cout << e.what() << endl;
+    }
+    
     return 0;
 }

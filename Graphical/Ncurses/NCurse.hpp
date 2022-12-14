@@ -43,7 +43,10 @@ class NCurse : public AGraphic
             convertor[ENNEMY] = 'X';
             this->setWinSize(HEIGHT, WIDTH);
         }
-        virtual ~NCurse() {}
+        virtual ~NCurse() 
+        {
+            this->CloseScreen();
+        }
 
         void InitScreen()
         {

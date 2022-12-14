@@ -6,6 +6,9 @@
 
 using namespace std;
 
+#ifndef H_AGraphic
+#define H_AGraphic
+
 class AGraphic
 {
     private:
@@ -37,3 +40,5 @@ class AGraphic
             this->width = _width;
         }
 };
+
+#endif

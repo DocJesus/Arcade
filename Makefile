@@ -1,10 +1,11 @@
-SRC = Common/Arcade.cpp main.cpp
+SRC = Graphical/Common/shader.cpp Common/Arcade.cpp main.cpp
 
 CXXFLAGS += -std=c++17 -Werror -Wextra -Wall -I./Include \
 			-I./Abstract -I./Common -I./Graphical/OpenGL \
-			-I./Games/BrickBreaker -I./Graphical/Ncurses
+			-I./Games/BrickBreaker -I./Graphical/Ncurses \
+			-I./Graphical
 
-LDFLAGS+=	-lGL -lGLU \
+LDFLAGS+=	-lGL -lGLU -lGLEW -lglfw\
 			-lncurses \
 			-lpthread
 
@@ -16,7 +17,7 @@ OBJ = $(SRC:.cpp=.o)
 NAME = arcade
 
 $(NAME):	$(OBJ)
-			g++ -o $(NAME) $(OBJ)
+			g++ $(OBJ) -o $(NAME) $(LDFLAGS)
 
 fclean: clean
 		rm -f $(NAME)
