@@ -1,13 +1,14 @@
-SRC = Graphical/Common/shader.cpp Common/Arcade.cpp main.cpp
+SRC = Graphical/Common/shader.cpp Common/Arcade.cpp \
+		Graphical/SFML/SFML.cpp main.cpp
 
 CXXFLAGS += -std=c++17 -Werror -Wextra -Wall -I./Include \
-			-I./Abstract -I./Common -I./Graphical/OpenGL \
+			-I./Abstract -I./Common -I./Graphical/SFML \
 			-I./Games/BrickBreaker -I./Graphical/Ncurses \
 			-I./Graphical
 
-LDFLAGS+=	-lGL -lGLU -lGLEW -lglfw\
-			-lncurses \
-			-lpthread
+LDFLAGS+=	-lGL -lGLU -lGLEW -lglfw \
+			-lncurses -lpthread \
+			-lsfml-graphics -lsfml-window -lsfml-system
 
 
 LOADLIBES = -lm

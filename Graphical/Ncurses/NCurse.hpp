@@ -5,7 +5,6 @@
 #define WIDTH 120
 #define HEIGHT 40 
 
-
 class NCurse : public AGraphic
 {
     private:
@@ -75,7 +74,7 @@ class NCurse : public AGraphic
             cout << "Ncurse close screen" << endl;
         }
 
-        int ReadInputs() const
+        int ReadInputs()
         {
             int c;
             c = wgetch(this->win);
@@ -108,17 +107,17 @@ class NCurse : public AGraphic
             return c;
         }
 
-        void Render(vector<vector<int>> _map, int _startPosX, int _startPosY)
+        void Render(vector<vector<int>> _map, int _mapWidth, int _mapHeight)
         {
-            (void)_startPosY;
+            (void)_mapWidth;
 
             // cout << input << endl;
             // temporaire
             // box(this->win, 0, 0);
             int x = 0;
             int y = 0;
-            int startX = _startPosX; //offset ? 
-            int startY = int(_map.size()); //offset ?
+            int startX = 0; //offset ? 
+            int startY = _mapHeight; //offset ?
             int elem;
 
             wborder(this->win, 0, 0, 0, 0, 0, 0, 0, 0);

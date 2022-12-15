@@ -3,6 +3,7 @@
 #include <string>
 #include <tuple>
 #include <unordered_map>
+#include <state.h>
 
 using namespace std;
 
@@ -25,8 +26,8 @@ class AGraphic
 
         virtual void InitScreen() = 0;
         virtual void CloseScreen() = 0;
-        virtual int ReadInputs() const = 0;
-        virtual void Render(vector<vector<int>> _map, int _startPosX, int _startPosY) = 0;
+        virtual int ReadInputs() = 0;
+        virtual void Render(vector<vector<int>> _map, int _mapWidth, int _mapHeight) = 0;
 
         void getWinSize(int* _height, int* _width) const
         {

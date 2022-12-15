@@ -7,7 +7,7 @@ int main()
     try
     {
         arc.InitGame();
-        // arc.Update();
+        arc.Update();
     }
     catch(Error &e)
     {

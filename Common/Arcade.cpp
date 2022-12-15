@@ -19,21 +19,22 @@ void Arcade::RetrieveInputs()
 
 void Arcade::InitGame()
 {
-    // int height, width;
+    int height, width;
 
     this->graphic->InitScreen();
-    // this->graphic->getWinSize(&height, &width);
+    this->graphic->getWinSize(&height, &width);
+
     // this->game = make_unique<BrickBreaker>(height, width);
     this->game = make_unique<BrickBreaker>(40, 120);
+
     this->game->InitGame();
-    // this->graphic->Render(this->game->getMap(), this->game->getStartPosX(), this->game->getStartPosY());
-    this->graphic->Render();
+    this->graphic->Render(this->game->getMap(), this->game->getWidth(), this->game->getHeigh());
 }
 
 void Arcade::Update()
 {
     // vector<int> input;
-    int input;
+    int input = 0;
 
     signal(SIGINT, SignalCallbackHandler);
 
@@ -41,12 +42,12 @@ void Arcade::Update()
     {
         while (!stop)
         {
-            // input = this->graphic->ReadInputs();
+            input = this->graphic->ReadInputs();
             if (input == 10)
                 stop = 1;
 
             this->game->GameUpdate(input);
-            // this->graphic->Render(this->game->getMap(), this->game->getStartPosX(), this->game->getStartPosY());
+            this->graphic->Render(this->game->getMap(), this->game->getWidth(), this->game->getHeigh());
             usleep(100000);
         }
     }

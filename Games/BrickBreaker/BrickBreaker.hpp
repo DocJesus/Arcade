@@ -138,7 +138,7 @@ class BrickBreaker : public AGame
 
         void GameUpdate(const int &_inputs)
         {
-            cout << _inputs << endl;
+            // cout << _inputs << endl;
 
             this->player->Move(_inputs);
             this->bullet->Move();

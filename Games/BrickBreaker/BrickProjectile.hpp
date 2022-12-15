@@ -29,10 +29,10 @@ class BrickProjectile : public AEntity
 
             this->UpdatePos();
 
-            cout << "Prev Coord " << prevY << " " << prevX << endl;
-            cout << "what is at " << this->coordY << " " << this->coordX << endl;
+            // cout << "Prev Coord " << prevY << " " << prevX << endl;
+            // cout << "what is at " << this->coordY << " " << this->coordX << endl;
             shared_ptr<AEntity> next_tile = gameMaster->getEntityAt(this->coordY, this->coordX);
-            cout << "Bonjour" << endl;
+            // cout << "Bonjour" << endl;
             int i = 0;
             if (next_tile != nullptr && next_tile->getType() != BONUS)
             {
@@ -40,7 +40,7 @@ class BrickProjectile : public AEntity
                 {
                     if (next_tile->getType() == ENNEMY)
                     {
-                        cout << "hit an ennemy" << endl;
+                        // cout << "hit an ennemy" << endl;
                         next_tile->Die();
                         this->setVelocity(-1);
                     }
@@ -49,7 +49,7 @@ class BrickProjectile : public AEntity
 
                     if (next_tile->getType() >= 50 && next_tile->getType() <= 53)
                     {
-                        cout << "hit an Wall" << endl;
+                        // cout << "hit an Wall" << endl;
                         // todo remove this
                         if (this->getPosY() == 0)
                             this->direction = UP;
@@ -73,7 +73,7 @@ class BrickProjectile : public AEntity
 
                     this->UpdatePos();
 
-                    cout << "what is at " << this->coordY << " " << this->coordX << endl;
+                    // cout << "what is at " << this->coordY << " " << this->coordX << endl;
                     // check if we go out of the map
                     next_tile = gameMaster->getEntityAt(this->coordY, this->coordX);
                     i++;
@@ -82,14 +82,14 @@ class BrickProjectile : public AEntity
             }
             else
             {
-                cout << prevY << " " << prevX << " " << this->coordY << " " << this->coordX;
+                // cout << prevY << " " << prevX << " " << this->coordY << " " << this->coordX;
                 gameMaster->EntityMoved(prevY, prevX, this->coordY, this->coordX);
             }
         }
 
         void Ricochet()
         {
-            cout << "Ricochet" << endl;
+            // cout << "Ricochet" << endl;
             if (this->velocity > 0)
             {
                 if (this->direction == UP_RIGHT)
@@ -120,7 +120,7 @@ class BrickProjectile : public AEntity
 
         void UpdatePos()
         {
-            cout << "direction of projectile " << this->direction << endl;
+            // cout << "direction of projectile " << this->direction << endl;
             switch (this->direction)
             {
                 case RIGHT: // move right
