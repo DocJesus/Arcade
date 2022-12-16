@@ -140,4 +140,10 @@ class NCurse : public AGraphic
             wrefresh(this->win);
             refresh();
         }
+
+        void Sleep(float _microTime)
+        {
+            usleep(_microTime);
+        }
+
 };

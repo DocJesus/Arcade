@@ -44,19 +44,26 @@ class SFML : public AGraphic
         {
             int value = 0;
             sf::Event event;
-            this->window.pollEvent(event);
+            bool available = true;
 
-            switch (event.type)
+            while (this->window.pollEvent(event))
             {
-                case sf::Event::KeyPressed:
-                   value = this->keyMap[event.key.code];
-                   break;
-                case sf::Event::Closed:
-                    window.close();
-                    value = 10;
-                    break;
-                default:
-                    break;
+                if (available)
+                {
+                    switch (event.type)
+                    {
+                        case sf::Event::KeyPressed:
+                        value = this->keyMap[event.key.code];
+                        break;
+                        case sf::Event::Closed:
+                            window.close();
+                            value = 10;
+                            break;
+                        default:
+                            break;
+                    }
+                    available = false;
+                }
             }
 
             return value;
@@ -96,6 +103,11 @@ class SFML : public AGraphic
 
             this->resetCounters();
             this->window.display();
+        }
+
+        void Sleep(float _microTime)
+        {
+            sf::sleep(sf::microseconds(_microTime));
         }
 
         float VecCoordToFloat(int _coord)

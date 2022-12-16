@@ -48,6 +48,7 @@ void Arcade::Update()
 
             this->game->GameUpdate(input);
             this->graphic->Render(this->game->getMap(), this->game->getWidth(), this->game->getHeigh());
+
             usleep(100000);
         }
     }
