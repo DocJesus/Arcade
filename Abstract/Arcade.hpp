@@ -12,14 +12,18 @@ class Arcade
 {
     private:
         unique_ptr<AGame> game;
-        unique_ptr<AGraphic> graphic;
+        vector<shared_ptr<AGraphic>> graphics;
 
         string input;
+        int graphic_iterator;
     public:
 
         Arcade()
         {
-            this->graphic = make_unique<SFML>();
+            this->graphics.push_back(make_shared<SFML>());
+            this->graphics.push_back(make_shared<NCurse>());
+
+            this->graphic_iterator = 0;
         }
         ~Arcade()
         {
@@ -28,5 +32,7 @@ class Arcade
 
         void Update();
         void RetrieveInputs();
-        void InitGame();
+        void Init();
+        shared_ptr<AGraphic> getCurrentGraphic();
+        void ChangeGraphic(int _input);
 };

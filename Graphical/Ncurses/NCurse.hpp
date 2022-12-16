@@ -49,7 +49,7 @@ class NCurse : public AGraphic
 
         void InitScreen()
         {
-            cout << "InitScreen NCurse " << this->tmp << endl;
+            // cout << "InitScreen NCurse " << this->tmp << endl;
             initscr();
             clear();
             noecho();
@@ -71,7 +71,7 @@ class NCurse : public AGraphic
             refresh();
             endwin();
             delwin(this->win);
-            cout << "Ncurse close screen" << endl;
+            // cout << "Ncurse close screen" << endl;
         }
 
         int ReadInputs()
@@ -93,6 +93,12 @@ class NCurse : public AGraphic
                 case 113:
                     c = LEFT;
                     break;
+                case 97:
+                    c = GRAPHICAL_DOWN;
+                    break;
+                case 101:
+                    c = GRAPHICAL_UP;
+                    break;
                 case 10: //enter
                     // c = -42;
                     break;
@@ -100,7 +106,7 @@ class NCurse : public AGraphic
                     refresh();
                     break;
             }
-            mvprintw(0, 0, "Charcter pressed is = %3d Hopefully it can be printed as '%d'", c, c);
+            // mvprintw(0, 0, "Charcter pressed is = %3d Hopefully it can be printed as '%d'", c, c);
             refresh();
 
             flushinp();
@@ -139,11 +145,6 @@ class NCurse : public AGraphic
             
             wrefresh(this->win);
             refresh();
-        }
-
-        void Sleep(float _microTime)
-        {
-            usleep(_microTime);
         }
 
 };

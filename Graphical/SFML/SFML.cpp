@@ -13,10 +13,14 @@ SFML::SFML()
     this->setWinSize(800, 800); // mettre un DEFINE dans AGraphic + Formule pour Ncurse
 
     this->keyMap[sf::Keyboard::Escape] = 10;
+    this->keyMap[sf::Keyboard::Return] = 10;
     this->keyMap[sf::Keyboard::Z] = UP;
     this->keyMap[sf::Keyboard::Q] = LEFT;
     this->keyMap[sf::Keyboard::S] = DOWN;
     this->keyMap[sf::Keyboard::D] = RIGHT;
+
+    this->keyMap[sf::Keyboard::A] = GRAPHICAL_DOWN;
+    this->keyMap[sf::Keyboard::E] = GRAPHICAL_UP;
 
     this->resetCounters();
 }

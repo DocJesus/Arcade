@@ -31,3 +31,7 @@
 #define CORNER 52
 #define BOT_ROW 53
 
+// switch
+#define GRAPHICAL_UP 60
+#define GRAPHICAL_DOWN 61
+

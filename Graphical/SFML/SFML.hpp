@@ -105,11 +105,6 @@ class SFML : public AGraphic
             this->window.display();
         }
 
-        void Sleep(float _microTime)
-        {
-            sf::sleep(sf::microseconds(_microTime));
-        }
-
         float VecCoordToFloat(int _coord)
         {
             float floatCoord = _coord * 20.f; // need to find the real conversion
