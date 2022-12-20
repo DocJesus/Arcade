@@ -2,6 +2,7 @@
 #include <iostream>
 #include <thread>
 #include "BrickBreaker.hpp"
+#include "Snake.hpp"
 #include "NCurse.hpp"
 #include "SFML.hpp"
 #include "Error.hpp"
@@ -20,8 +21,8 @@ class Arcade
 
         Arcade()
         {
-            this->graphics.push_back(make_shared<SFML>());
             this->graphics.push_back(make_shared<NCurse>());
+            this->graphics.push_back(make_shared<SFML>());
 
             this->graphic_iterator = 0;
         }

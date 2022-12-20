@@ -4,26 +4,90 @@ int SFML::bodyCount;
 int SFML::wallCount;
 int SFML::ennemyCount;
 
-SFML::SFML()
+void SFML::InitScreen()
 {
-    this->bonuShape = sf::CircleShape(8.f);
-    this->bonuShape.setPointCount(25);
+    this->window.create(sf::VideoMode(SFML_WIDTH, SFML_HEIGHT), "SFML works!");
+    window.setVerticalSyncEnabled(true);
+    window.setFramerateLimit(60);
+}
 
-    this->playerShape = sf::CircleShape(8.f, 3);
-    this->setWinSize(800, 800); // mettre un DEFINE dans AGraphic + Formule pour Ncurse
+void SFML::CloseScreen()
+{
+    this->window.close();
+}
 
-    this->keyMap[sf::Keyboard::Escape] = 10;
-    this->keyMap[sf::Keyboard::Return] = 10;
-    this->keyMap[sf::Keyboard::Z] = UP;
-    this->keyMap[sf::Keyboard::Q] = LEFT;
-    this->keyMap[sf::Keyboard::S] = DOWN;
-    this->keyMap[sf::Keyboard::D] = RIGHT;
+int SFML::ReadInputs()
+{
+    int value = 0;
+    sf::Event event;
+    bool available = true;
 
-    this->keyMap[sf::Keyboard::A] = GRAPHICAL_DOWN;
-    this->keyMap[sf::Keyboard::E] = GRAPHICAL_UP;
+    while (this->window.pollEvent(event))
+    {
+        if (available)
+        {
+            switch (event.type)
+            {
+                case sf::Event::KeyPressed:
+                value = this->keyMap[event.key.code];
+                break;
+                case sf::Event::Closed:
+                    window.close();
+                    value = 10;
+                    break;
+                default:
+                    break;
+            }
+            available = false;
+        }
+    }
+
+    return value;
+}
+
+void SFML::Render(vector<vector<int>> _map, int _mapWidth, int _mapHeight)
+{
+    int x = 0;
+    int y = 0;
+    int startX = this->VecCoordToFloat(_mapWidth) + 50; //offset ? 
+    int startY = this->VecCoordToFloat(_mapHeight) + 50; //offset ?
+    startX = 0;
+    // startY = 0;
+    int elem;
+    sf::Shape *shape;
+
+    this->window.clear(sf::Color::Black);
+    // draw box around the whole shit ?
+    // wborder(this->win, 0, 0, 0, 0, 0, 0, 0, 0);
+
+    while (y < int(_map.size()))
+    {
+        x = 0;
+        while (x < int(_map[y].size()))
+        {
+            elem = _map[y][x];
+            shape = getShapeForEntity(elem);
+            if (shape != nullptr)
+            {
+                shape->setPosition(this->VecCoordToFloat(x) + startX, startY - this->VecCoordToFloat(y));
+                this->window.draw(*shape);
+            }
+            x++;
+        }
+        y++;
+    }
 
     this->resetCounters();
+    this->window.display();
 }
+
+float SFML::VecCoordToFloat(int _coord)
+{
+    float floatCoord = _coord * 20.f; // need to find the real conversion
+
+    return floatCoord;
+}
+
 
 sf::Shape *SFML::getShapeForEntity(int _entity)
 {

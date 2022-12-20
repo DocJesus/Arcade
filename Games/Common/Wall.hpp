@@ -1,5 +1,8 @@
 #include "AEntity.hpp"
 
+#ifndef H_WALL
+#define H_WALL
+
 class Wall : public AEntity
 {
     public:
@@ -19,12 +22,14 @@ class Wall : public AEntity
         {
             (void)_input;
         }
-        void UpdatePos()
+        void UpdatePos(const int &_input)
         {
-
+            (void)_input;
         }
         void Die()
         {
         }
 
 };
+
+#endif

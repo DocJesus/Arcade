@@ -13,14 +13,8 @@ class BrickEnnemy : public AEntity
         {
         }
 
-        virtual void Move(const int &_input = 0)
-        {
-            (void)_input;
-        }
+        virtual void Move(const int &_input = 0);
 
-        virtual void UpdatePos()
-        {
-            
-        }
+        virtual void UpdatePos(const int &_input);
 
 };
