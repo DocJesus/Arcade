@@ -10,11 +10,11 @@ void BrickPlayerBody::Move(const int &_input)
     {
         case RIGHT: // move right
             this->coordX += 1;
-            this->direction = PLAYER_RIGHT;
+            this->direction = PLAYER_BODY_RIGHT;
             break;
         case LEFT: // move left
             this->coordX -= 1;
-            this->direction = PLAYER_LEFT;
+            this->direction = PLAYER_BODY_LEFT;
             break;
         default:
             break;

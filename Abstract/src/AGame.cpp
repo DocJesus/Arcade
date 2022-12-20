@@ -64,7 +64,7 @@ void AGame::DrawBoard()
             if (this->entities[y][x] != nullptr)
             {
                 type = this->entities[y][x]->getType();
-                if (type == PLAYER)
+                if (type == PLAYER || type == PLAYER_BODY)
                 {
                     this->map[y][x] = this->entities[y][x]->getDirection();                    
                 }
@@ -84,6 +84,15 @@ void AGame::KillEntity(const int &_Y, const int &_X)
 {
     this->entities[_Y][_X] = nullptr;
     this->map[_Y][_X] = EMPTY;
+}
+
+void AGame::AddEntity(const int &_Y, const int &_X, shared_ptr<AEntity> _ent)
+{
+    if (_Y < int(this->entities.size()))
+    {
+        if (_X < int(this->entities[_Y].size()))
+            this->entities[_Y][_X] = _ent;
+    }
 }
 
 vector<vector<int>> &AGame::getMap()

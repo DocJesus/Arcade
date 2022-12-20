@@ -96,12 +96,34 @@ sf::Shape *SFML::getShapeForEntity(int _entity)
     switch (_entity)
     {
         case (PLAYER_UP):
-            shape = &this->playerShape;
+            shape = &this->playerShapeUp;
+            break;
+        case (PLAYER_DOWN):
+            shape = &this->playerShapeDown;
+            break;
+        case (PLAYER_LEFT):
+            shape = &this->playerShapeLeft;
+            break;
+        case (PLAYER_RIGHT):
+            shape = &this->playerShapeRight;
             break;
         case (BONUS):
             shape = &this->bonuShape;
             break;
         case (PLAYER_BODY):
+        case (PLAYER_BODY_UP):
+        case (PLAYER_BODY_DOWN):
+            /*
+            if (this->bodyCount >= int(this->bodyShape.size()))
+            {
+                sf::RectangleShape newBodyShape = sf::RectangleShape(sf::Vector2f(16.f, 8.f));
+                newBodyShape.setFillColor(sf::Color::White);
+                newBodyShape.setRotation(90.f);
+                this->bodyShape.push_back(newBodyShape);
+            }
+            shape = &this->bodyShape[this->bodyCount];
+            this->bodyCount += 1;
+            break; */
         case (PLAYER_BODY_RIGHT):
         case (PLAYER_BODY_LEFT):
             if (this->bodyCount >= int(this->bodyShape.size()))

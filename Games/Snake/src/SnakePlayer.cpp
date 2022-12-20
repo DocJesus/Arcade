@@ -6,29 +6,13 @@ void SnakePlayer::Move(const int &_input)
 {
     int prevY = this->coordY;
     int prevX = this->coordX;
+    // int prevDir = this->direction;
 
     this->UpdatePos(_input);
 
     // check the collision with the side that is in the direction of the move
     shared_ptr<AEntity> next_tile = nullptr;
-
-    switch (this->direction)
-    {
-        case PLAYER_RIGHT:
-            next_tile = gameMaster->getEntityAt(this->coordY, this->coordX + 1);
-            break;
-        case PLAYER_LEFT:
-            next_tile = gameMaster->getEntityAt(this->coordY, this->coordX - 1);
-            break;
-        case PLAYER_UP:
-            next_tile = gameMaster->getEntityAt(this->coordY + 1, this->coordX);
-            break;
-        case PLAYER_DOWN:
-            next_tile = gameMaster->getEntityAt(this->coordY - 1, this->coordX);
-            break;                
-        default:
-            break;
-    }
+    next_tile = gameMaster->getEntityAt(this->coordY, this->coordX);
 
     if (next_tile == nullptr)
     {
@@ -36,8 +20,15 @@ void SnakePlayer::Move(const int &_input)
         gameMaster->EntityMoved(prevY, prevX, this->coordY, this->coordX);
 
         // move the body of the player
-        // MovePlayerBody(true, _input);
+        int i = 0;
+        for (auto it : this->orders)
+        {
+            this->body[i]->Move(it);
+            i++;
+        }
 
+        this->orders.pop_back();
+        this->orders.push_front(_input);
     }
     else
     {
@@ -75,4 +66,9 @@ void SnakePlayer::UpdatePos(const int &_input)
 void SnakePlayer::Die()
 {
     
+}
+
+void SnakePlayer::AddBodyPart()
+{
+    this->body.push_back(make_shared<SnakeBody>());
 }

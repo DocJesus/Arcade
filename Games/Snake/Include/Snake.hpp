@@ -1,8 +1,8 @@
 #include <memory>
 #include "SnakePlayer.hpp"
 #include "Wall.hpp"
-#include "AEntity.hpp"
 #include "AGame.hpp"
+#include "AEntity.hpp"
 
 class Snake : public AGame
 {
@@ -31,11 +31,9 @@ class Snake : public AGame
             // creating the Areana
             this->CreateArena();
 
-            // creating the player
-            this->player = make_shared<SnakePlayer>(this, 1, this->width / 2);
-            this->entities[1][this->player->getPosX()] = this->player;
-
-            // creating the body of the player
+            // creating the player (the body is created within the player constructor)
+            this->player = make_shared<SnakePlayer>(this, 3, this->width / 2);
+            this->entities[this->player->getPosY()][this->player->getPosX()] = this->player;
 
             // placing the fruits
 

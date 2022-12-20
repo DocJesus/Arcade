@@ -29,7 +29,9 @@ class NCurse : public AGraphic
             convertor[BONUS] = 'o';
             convertor[EMPTY] = ' ';
 
-            convertor[PLAYER_BODY] = '=';
+            convertor[PLAYER_BODY] = '|';
+            convertor[PLAYER_BODY_UP] = '|';
+            convertor[PLAYER_BODY_DOWN] = '|';
             convertor[PLAYER_BODY_LEFT] = '=';
             convertor[PLAYER_BODY_RIGHT] = '=';
 

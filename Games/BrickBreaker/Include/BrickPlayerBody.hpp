@@ -7,7 +7,7 @@
 class BrickPlayerBody : public AEntity
 {
     public:
-        BrickPlayerBody() : AEntity(PLAYER_UP, nullptr, 0, 0)
+        BrickPlayerBody() : AEntity(PLAYER_BODY, nullptr, 0, 0)
         {
 
         }

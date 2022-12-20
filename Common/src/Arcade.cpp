@@ -25,8 +25,8 @@ void Arcade::Init()
     this->getCurrentGraphic()->getWinSize(&height, &width);
 
     // this->game = make_unique<BrickBreaker>(height, width);
-    this->game = make_unique<BrickBreaker>(40, 120);
-    // this->game = make_unique<Snake>(60, 60);
+    // this->game = make_unique<BrickBreaker>(40, 120);
+    this->game = make_unique<Snake>(60, 60);
 
     this->game->InitGame();
     this->getCurrentGraphic()->Render(this->game->getMap(), this->game->getWidth(), this->game->getHeigh());
