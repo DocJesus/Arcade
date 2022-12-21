@@ -4,13 +4,15 @@ class SnakeBody : public AEntity
 {
 
     public:
-        SnakeBody() : AEntity(PLAYER_BODY, nullptr, 0, 0)
+        SnakeBody(AGame *_gameMaster, const int &_coordY, const int &_coordX, const int &_direction) : AEntity(PLAYER_BODY, _gameMaster, _coordY, _coordX)
         {
-            this->direction = PLAYER_BODY_UP;
+            this->direction = _direction;
         }
-        SnakeBody(AGame *_gameMaster, const int &_coordY, const int &_coordX) : AEntity(PLAYER_BODY, _gameMaster, _coordY, _coordX)
+        SnakeBody(AGame *_gameMaster, const int &_coordY, const int &_coordX) : SnakeBody(_gameMaster, _coordY, _coordX, PLAYER_BODY_UP)
         {
-            this->direction = PLAYER_BODY_UP;
+        }
+        SnakeBody() : SnakeBody(nullptr, 0, 0, PLAYER_BODY_UP)
+        {
         }
         ~SnakeBody()
         {}

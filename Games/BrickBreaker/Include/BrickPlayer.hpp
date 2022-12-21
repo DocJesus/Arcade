@@ -12,19 +12,6 @@ class BrickPlayer : public AEntity
         vector<shared_ptr<AEntity>> rightWing;
 
     public:
-        BrickPlayer() : AEntity(PLAYER, nullptr, 0, 0)
-        {
-            this->width = 5;
-            this->direction = PLAYER;
-
-            int i = 0;
-            while (i < this->width / 2)
-            {
-                this->leftWing.push_back(make_shared<BrickPlayerBody>(PLAYER_BODY_LEFT, this->gameMaster, this->getPosY(), this->getPosX() + i - (this->width / 2)));
-                this->rightWing.push_back(make_shared<BrickPlayerBody>(PLAYER_BODY_RIGHT, this->gameMaster, this->getPosY(), this->getPosX() + i + 1));
-                i++;
-            }
-        }
         BrickPlayer(AGame *_gameMaster, const int &_coordY, const int &_coordX) : AEntity(PLAYER, _gameMaster, _coordY, _coordX)
         {
             this->width = 5; // better be an odd number
@@ -38,6 +25,12 @@ class BrickPlayer : public AEntity
                 this->rightWing.push_back(make_shared<BrickPlayerBody>(PLAYER_BODY_RIGHT, this->gameMaster, this->getPosY(), this->getPosX() + i + 1));
                 i++;
             }
+        }
+        BrickPlayer(AGame *_gameMaster) : BrickPlayer(_gameMaster, 0, 0)
+        {            
+        }
+        BrickPlayer() : BrickPlayer(nullptr, 0, 0)
+        {
         }
         virtual ~BrickPlayer()
         {

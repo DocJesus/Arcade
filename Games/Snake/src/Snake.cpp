@@ -4,7 +4,14 @@
 void Snake::InitGame()
 {
     // special
-    // this->player->Move(RIGHT);
+    
+    /*
+    for (int i = 0; i < 18; i++)
+    {
+        this->player->Move(UP);
+    }
+    */
+    
     this->DrawBoard();
 }
 

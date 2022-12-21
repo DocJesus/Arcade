@@ -3,6 +3,7 @@
 #include "Wall.hpp"
 #include "AGame.hpp"
 #include "AEntity.hpp"
+#include "SnakeFruit.hpp"
 
 class Snake : public AGame
 {
@@ -32,10 +33,12 @@ class Snake : public AGame
             this->CreateArena();
 
             // creating the player (the body is created within the player constructor)
-            this->player = make_shared<SnakePlayer>(this, 3, this->width / 2);
-            this->entities[this->player->getPosY()][this->player->getPosX()] = this->player;
+            this->player = make_shared<SnakePlayer>(this, 4, this->width / 2);
+            this->AddEntity(this->player->getPosY(), this->player->getPosX(), this->player);
 
-            // placing the fruits
+            // placing the fruit
+            shared_ptr<SnakeFruit> fruit = make_shared<SnakeFruit>(this);
+            this->AddEntityRd(fruit);
 
             vector<vector<int>> vec(this->height, vector<int>(this->width, EMPTY));
             this->map = vec;

@@ -52,6 +52,9 @@ int NCurse::ReadInputs()
         case 101:
             c = GRAPHICAL_UP;
             break;
+        case 102: // F
+            c = SPECIAL;
+            break;
         case 10: //enter
             // c = -42;
             break;

@@ -37,3 +37,4 @@
 #define GRAPHICAL_UP 60
 #define GRAPHICAL_DOWN 61
 
+#define SPECIAL 100

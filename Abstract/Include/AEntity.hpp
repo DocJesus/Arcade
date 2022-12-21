@@ -27,6 +27,13 @@ class AEntity
             this->coordY = _coordY;
             this->coordX = _coordX;
         }
+        AEntity()
+        {
+            this->type = 0;
+            this->gameMaster = nullptr;
+            this->coordY = 0;
+            this->coordX = 0;
+        }
         virtual ~AEntity()
         {
 
@@ -48,10 +55,13 @@ class AEntity
         void setYX(const int &_newY, const int &_newX);
         void setY(const int &_newY);
         void setX(const int &_newX);
+        void setType(const int &_type);
+        void setGM(AGame *_gm);
+        void setDir(const int &_dir);
         const int &getPosX() const;
         const int &getPosY() const;
         const int &getType() const;
-        const AGame *getMaster() const;
+        AGame *getMaster() const;
         const int &getDirection() const;
 };
 

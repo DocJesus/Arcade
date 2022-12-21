@@ -19,6 +19,18 @@ void AEntity::setX(const int &_newX)
 {            
     this->coordX = _newX;
 }
+void AEntity::setType(const int &_type)
+{
+    this->type = _type;
+}
+void AEntity::setGM(AGame *_gm)
+{
+    this->gameMaster = _gm;
+}
+void AEntity::setDir(const int &_dir)
+{
+    this->direction = _dir;
+}
 const int &AEntity::getPosX() const
 {
     return this->coordX;
@@ -31,7 +43,7 @@ const int &AEntity::getType() const
 {
     return this->type;
 }
-const AGame *AEntity::getMaster() const
+AGame *AEntity::getMaster() const
 {
     return this->gameMaster;
 }

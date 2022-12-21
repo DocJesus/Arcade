@@ -91,8 +91,39 @@ void AGame::AddEntity(const int &_Y, const int &_X, shared_ptr<AEntity> _ent)
     if (_Y < int(this->entities.size()))
     {
         if (_X < int(this->entities[_Y].size()))
+        {
+            // cout << "Adding Entity at " << _Y << " " << _X << endl;
             this->entities[_Y][_X] = _ent;
+            _ent->setY(_Y);
+            _ent->setX(_X);
+        }
     }
+}
+
+void AGame::AddEntityRd(shared_ptr<AEntity> _ent)
+{
+    int coordX = rand() % (this->width - 1) + 1;
+    int coordY = rand() % (this->height - 1) + 1;
+    int lock = 0;
+
+    shared_ptr<AEntity> next_tile = nullptr;
+    next_tile = getEntityAt(coordY, coordX);
+
+    while (next_tile != nullptr && lock < 50)
+    {
+        coordX = rand() % this->width + 1;
+        coordY = rand() % this->height + 1;
+        next_tile = getEntityAt(coordY, coordX);
+        lock += 1;
+    }
+
+    if (lock < 50)
+    {
+        this->entities[coordY][coordX] = _ent;
+        _ent->setY(coordY);
+        _ent->setX(coordX);
+    }
+
 }
 
 vector<vector<int>> &AGame::getMap()

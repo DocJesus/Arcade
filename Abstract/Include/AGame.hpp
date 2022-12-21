@@ -53,6 +53,7 @@ class AGame
         void KillEntity(const int &_Y, const int &_X);
 
         void AddEntity(const int &_Y, const int &_X, shared_ptr<AEntity> _ent);
+        void AddEntityRd(shared_ptr<AEntity> _ent);
 
         vector<vector<int>> &getMap();
         shared_ptr<AEntity> getEntityAt(const int &_coordY, const int &_coordX) const;

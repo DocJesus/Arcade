@@ -5,7 +5,7 @@ SRC = Graphical/Common/shader.cpp Common/src/Arcade.cpp \
 		Games/BrickBreaker/src/BrickPlayer.cpp Games/BrickBreaker/src/BrickPlayerBody.cpp \
 		Games/BrickBreaker/src/BrickProjectile.cpp \
 		Games/Snake/src/Snake.cpp Games/Snake/src/SnakePlayer.cpp \
-		Games/Snake/src/SnakeBody.cpp \
+		Games/Snake/src/SnakeBody.cpp Games/Snake/src/SnakeFruit.cpp \
 		Graphical/Ncurses/src/NCurse.cpp \
 		main.cpp
 
