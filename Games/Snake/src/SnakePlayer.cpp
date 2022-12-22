@@ -13,34 +13,67 @@ void SnakePlayer::Move(const int &_input)
     shared_ptr<AEntity> next_tile = nullptr;
     next_tile = gameMaster->getEntityAt(this->coordY, this->coordX);
 
-    if (next_tile == nullptr || (next_tile != nullptr && next_tile->getType() == BONUS))
+    if (next_tile == nullptr)
+        this->MoveBody(prevY, prevX, _input);
+    else if (next_tile != nullptr && (next_tile->getType() == TOP_ROW ||
+             next_tile->getType() == SIDE_ROW || next_tile->getType() == BOT_ROW))
     {
-        if (next_tile != nullptr && next_tile->getType() == BONUS)
+        switch (this->direction)
+        {
+            case PLAYER_RIGHT:
+                this->coordX = 1;
+                break;
+            case PLAYER_LEFT:
+                this->coordX = this->gameMaster->getWidth() - 2; // - 2 because there is the side of the map
+                break;
+            case PLAYER_UP:
+                this->coordY = 1;
+                break;
+            case PLAYER_DOWN:
+                this->coordY = this->gameMaster->getHeigh() - 2;
+                break;
+            default:
+                break;
+        }
+
+        next_tile = gameMaster->getEntityAt(this->coordY, this->coordX);
+        if (next_tile == nullptr)
+            this->MoveBody(prevY, prevX, _input);
+        else if (next_tile->getType() == BONUS)
         {
             next_tile->Die();
             this->AddBodyPart();
+            this->MoveBody(prevY, prevX, _input);            
         }
-
-        // move the player
-        gameMaster->EntityMoved(prevY, prevX, this->coordY, this->coordX);
-
-        // move the body of the player
-        int i = 0;
-        for (auto it : this->orders)
-        {
-            this->body[i]->Move(it);
-            i++;
-        }
-
-        this->orders.pop_back();
-        this->orders.push_front(_input);
+    }
+    else if (next_tile != nullptr && next_tile->getType() == BONUS)
+    {
+        next_tile->Die();
+        this->AddBodyPart();
+        this->MoveBody(prevY, prevX, _input);
     }
     else
     {
         this->coordY = prevY;
         this->coordX = prevX;
     }
+}
 
+void SnakePlayer::MoveBody(const int &prevY, const int &prevX, const int &_input)
+{
+    // move the player
+    gameMaster->EntityMoved(prevY, prevX, this->coordY, this->coordX);
+
+    // move the body of the player
+    int i = 0;
+    for (auto it : this->orders)
+    {
+        this->body[i]->Move(it);
+        i++;
+    }
+
+    this->orders.pop_back();
+    this->orders.push_front(_input);
 }
 
 void SnakePlayer::UpdatePos(const int &_input)

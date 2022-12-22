@@ -17,9 +17,38 @@ void SnakeBody::Move(const int &_input)
         // move the entity
         gameMaster->EntityMoved(prevY, prevX, this->coordY, this->coordX);
     }
+    else if (next_tile != nullptr && (next_tile->getType() == TOP_ROW ||
+             next_tile->getType() == SIDE_ROW || next_tile->getType() == BOT_ROW))
+    {
+        switch (this->direction)
+        {
+            case PLAYER_BODY_RIGHT:
+                this->coordX = 1;
+                break;
+            case PLAYER_BODY_LEFT:
+                this->coordX = this->gameMaster->getWidth() - 2; // - 2 because there is the side of the map
+                break;
+            case PLAYER_BODY_UP:
+                this->coordY = 1;
+                break;
+            case PLAYER_BODY_DOWN:
+                this->coordY = this->gameMaster->getHeigh() - 2;
+                break;
+            default:
+                break;
+        }
+        next_tile = gameMaster->getEntityAt(this->coordY, this->coordX);
+        if (next_tile == nullptr)
+            gameMaster->EntityMoved(prevY, prevX, this->coordY, this->coordX);
+        else
+        {
+            cout << next_tile->getType() << endl;
+            this->coordY = prevY;
+            this->coordX = prevX;
+        }
+    }
     else
     {
-        cout << next_tile->getType() << endl;
         this->coordY = prevY;
         this->coordX = prevX;
     }

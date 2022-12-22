@@ -45,6 +45,8 @@ class SnakePlayer : public AEntity
         // validate the input passed and move
         void Move(const int &_input = 0);
 
+        void MoveBody(const int &prevY, const int &prevX, const int &_input);
+
         void UpdatePos(const int &_input);
 
         void AddBodyPart();
