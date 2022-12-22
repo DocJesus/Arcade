@@ -46,14 +46,20 @@ int NCurse::ReadInputs()
         case 113:
             c = LEFT;
             break;
-        case 97:
+        case 97: // E
             c = GRAPHICAL_DOWN;
             break;
-        case 101:
+        case 101: // A
             c = GRAPHICAL_UP;
             break;
         case 102: // F
             c = SPECIAL;
+            break;
+        case 112: // P
+            c = GAME_UP;
+            break;
+        case 111: // O
+            c = GAME_DOWN;
             break;
         case 10: //enter
             // c = -42;
@@ -62,7 +68,7 @@ int NCurse::ReadInputs()
             refresh();
             break;
     }
-    // mvprintw(0, 0, "Charcter pressed is = %3d Hopefully it can be printed as '%d'", c, c);
+    mvprintw(0, 0, "Charcter pressed is = %3d Hopefully it can be printed as '%d'", c, c);
     refresh();
 
     flushinp();
@@ -102,4 +108,9 @@ void NCurse::Render(vector<vector<int>> _map, int _mapWidth, int _mapHeight)
     
     wrefresh(this->win);
     refresh();
+}
+
+void NCurse::ClearScreen()
+{
+    clear();
 }

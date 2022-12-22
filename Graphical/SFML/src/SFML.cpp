@@ -173,3 +173,8 @@ void SFML::resetCounters()
     this->wallCount = 0;
     this->ennemyCount = 0;
 }
+
+void SFML::ClearScreen()
+{
+    this->window.clear(sf::Color::Black);
+}

@@ -51,6 +51,8 @@ class SFML : public AGraphic
 
             this->keyMap[sf::Keyboard::A] = GRAPHICAL_DOWN;
             this->keyMap[sf::Keyboard::E] = GRAPHICAL_UP;
+            this->keyMap[sf::Keyboard::O] = GAME_DOWN;
+            this->keyMap[sf::Keyboard::P] = GAME_UP;
 
             this->resetCounters();
         }
@@ -67,6 +69,8 @@ class SFML : public AGraphic
         int ReadInputs();
 
         void Render(vector<vector<int>> _map, int _mapWidth, int _mapHeight);
+
+        void ClearScreen();
 
         float VecCoordToFloat(int _coord);
 

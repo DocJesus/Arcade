@@ -57,6 +57,23 @@ class BrickBreaker : public AGame
             this->bullet = make_shared<BrickProjectile>(this, 2, this->width / 2);
             this->AddEntity(this->bullet->getPosY(), this->bullet->getPosX(), this->bullet);
 
+            // placing the Bricks
+            int y = 0;
+            x = 0;
+
+            y = this->height / 2;
+            while (y < this->height - 1)
+            {
+                x = 1;
+                while (x < this->width - 1)
+                {
+                    this->entities[y][x] = make_shared<BrickEnnemy>(this, y, x);
+                    x++;
+                }
+                y++;
+            }
+
+
             vector<vector<int>> vec(this->height, vector<int>(this->width, EMPTY));
             this->map = vec;
         }

@@ -47,7 +47,7 @@ class Snake : public AGame
         {
         }
 
-        void InitGame();
+        void InitGame();    
 
         void GameUpdate(const int &_inputs);
 

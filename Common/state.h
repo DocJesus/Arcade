@@ -36,5 +36,7 @@
 // switch
 #define GRAPHICAL_UP 60
 #define GRAPHICAL_DOWN 61
+#define GAME_UP 62
+#define GAME_DOWN 63
 
 #define SPECIAL 100

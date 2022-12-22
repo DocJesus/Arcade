@@ -3,12 +3,13 @@
 void BrickBreaker::InitGame()
 {
     // (RE)Placing Player
-    this->player->setYX(1, this->width / 2);
+    // this->player->setYX(1, this->width / 2);
 
     // (RE)Placing Bullet
-    this->bullet->setYX(2, this->width / 2);
+    // this->bullet->setYX(2, this->width / 2);
 
     // (RE)Placing Bricks
+    /*
     int y = 0;
     int x = 0;
 
@@ -23,6 +24,7 @@ void BrickBreaker::InitGame()
         }
         y++;
     }
+    */
 
 
     // special

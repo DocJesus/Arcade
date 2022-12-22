@@ -59,4 +59,5 @@ class NCurse : public AGraphic
 
         void Render(vector<vector<int>> _map, int _mapWidth, int _mapHeight);
 
+        void ClearScreen();
 };

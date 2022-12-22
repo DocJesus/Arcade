@@ -26,10 +26,10 @@ void Arcade::Init()
 
     // this->game = make_unique<BrickBreaker>(height, width);
     // this->game = make_unique<BrickBreaker>(40, 120);
-    this->game = make_unique<Snake>(60, 60);
+    // this->game = make_unique<Snake>(60, 60);
 
-    this->game->InitGame();
-    this->getCurrentGraphic()->Render(this->game->getMap(), this->game->getWidth(), this->game->getHeigh());
+    this->getCurrentGame()->InitGame();
+    this->getCurrentGraphic()->Render(this->getCurrentGame()->getMap(), this->getCurrentGame()->getWidth(), this->getCurrentGame()->getHeigh());
 }
 
 void Arcade::Update()
@@ -49,8 +49,11 @@ void Arcade::Update()
 
             if (input == GRAPHICAL_DOWN || input == GRAPHICAL_UP)
                 this->ChangeGraphic(input);
-            this->game->GameUpdate(input);
-            this->getCurrentGraphic()->Render(this->game->getMap(), this->game->getWidth(), this->game->getHeigh());
+            if (input == GAME_DOWN || input == GAME_UP)
+                this->ChangeGame(input);
+
+            this->getCurrentGame()->GameUpdate(input);
+            this->getCurrentGraphic()->Render(this->getCurrentGame()->getMap(), this->getCurrentGame()->getWidth(), this->getCurrentGame()->getHeigh());
 
             usleep(100000);
         }
@@ -66,6 +69,11 @@ void Arcade::Update()
 shared_ptr<AGraphic> Arcade::getCurrentGraphic()
 {
     return this->graphics[this->graphic_iterator];
+}
+
+shared_ptr<AGame> Arcade::getCurrentGame()
+{
+    return this->games[this->game_iterator];
 }
 
 void Arcade::ChangeGraphic(int _input)
@@ -86,4 +94,23 @@ void Arcade::ChangeGraphic(int _input)
             this->graphic_iterator++;
     }
     this->getCurrentGraphic()->InitScreen();
+}
+
+void Arcade::ChangeGame(int _input)
+{
+    if (_input == GAME_DOWN)
+    {
+        if (this->game_iterator == 0)
+            this->game_iterator = this->games.size() - 1;
+        else
+            this->game_iterator--;
+    }
+    else if (_input == GAME_UP)
+    {
+        if (this->game_iterator == int(this->games.size()) - 1)
+            this->game_iterator = 0;
+        else
+            this->game_iterator++;
+    }
+    this->getCurrentGraphic()->ClearScreen();
 }
