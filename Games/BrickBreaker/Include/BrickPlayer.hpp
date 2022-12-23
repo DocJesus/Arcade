@@ -15,7 +15,7 @@ class BrickPlayer : public AEntity
         BrickPlayer(AGame *_gameMaster, const int &_coordY, const int &_coordX) : AEntity(PLAYER, _gameMaster, _coordY, _coordX)
         {
             this->width = 5; // better be an odd number
-            this->direction = PLAYER;
+            this->direction = PLAYER_UP;
 
             // creating body of the player
             int i = 0;

@@ -14,7 +14,7 @@ class SnakePlayer : public AEntity
     public:
         SnakePlayer(AGame *_gameMaster, const int &_coordY, const int &_coordX) : AEntity(PLAYER, _gameMaster, _coordY, _coordX)
         {
-            this->direction = PLAYER;
+            this->direction = PLAYER_UP;
 
             // creating body of the player
             shared_ptr<AEntity> neck = make_shared<SnakeBody>(this->gameMaster, this->getPosY() - 1, this->getPosX());

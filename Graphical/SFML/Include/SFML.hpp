@@ -13,10 +13,8 @@ class SFML : public AGraphic
         sf::RenderWindow window;
 
         sf::CircleShape bonuShape;
-        sf::CircleShape playerShapeUp;
-        sf::CircleShape playerShapeDown;
-        sf::CircleShape playerShapeLeft;
-        sf::CircleShape playerShapeRight;
+        sf::CircleShape playerShape;
+
         vector<sf::RectangleShape> bodyShape;
         vector<sf::RectangleShape> wallShape;
         vector<sf::RectangleShape> ennemyShape;
@@ -31,15 +29,12 @@ class SFML : public AGraphic
         SFML()
         {
             this->bonuShape = sf::CircleShape(8.f);
+            this->bonuShape.setOrigin(8.f, 8.f);
             this->bonuShape.setPointCount(25);
 
-            this->playerShapeUp = sf::CircleShape(8.f, 3);
-            this->playerShapeDown = sf::CircleShape(8.f, 3);
-            this->playerShapeDown.setRotation(180.f);
-            this->playerShapeLeft = sf::CircleShape(8.f, 3);
-            this->playerShapeLeft.setRotation(-90.f);
-            this->playerShapeRight = sf::CircleShape(8.f, 3);
-            this->playerShapeRight.setRotation(90.f);
+            this->playerShape = sf::CircleShape(8.f, 3);
+            this->playerShape.setOrigin(8.f, 8.f);
+
             this->setWinSize(800, 800); // mettre un DEFINE dans AGraphic + Formule pour Ncurse
 
             this->keyMap[sf::Keyboard::Escape] = 10;

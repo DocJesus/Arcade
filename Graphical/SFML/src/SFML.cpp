@@ -51,7 +51,7 @@ void SFML::Render(vector<vector<int>> _map, int _mapWidth, int _mapHeight)
     int y = 0;
     int startX = this->VecCoordToFloat(_mapWidth) + 50; //offset ? 
     int startY = this->VecCoordToFloat(_mapHeight) + 50; //offset ?
-    startX = 0;
+    startX = 50;
     // startY = 0;
     int elem;
     sf::Shape *shape;
@@ -96,16 +96,20 @@ sf::Shape *SFML::getShapeForEntity(int _entity)
     switch (_entity)
     {
         case (PLAYER_UP):
-            shape = &this->playerShapeUp;
+            shape = &this->playerShape;
+            shape->setRotation(0.f);
             break;
         case (PLAYER_DOWN):
-            shape = &this->playerShapeDown;
+            shape = &this->playerShape;
+            shape->setRotation(180.f);
             break;
         case (PLAYER_LEFT):
-            shape = &this->playerShapeLeft;
+            shape = &this->playerShape;
+            shape->setRotation(-90.f);
             break;
         case (PLAYER_RIGHT):
-            shape = &this->playerShapeRight;
+            shape = &this->playerShape;
+            shape->setRotation(90.f);
             break;
         case (BONUS):
             shape = &this->bonuShape;
@@ -113,35 +117,37 @@ sf::Shape *SFML::getShapeForEntity(int _entity)
         case (PLAYER_BODY):
         case (PLAYER_BODY_UP):
         case (PLAYER_BODY_DOWN):
-            /*
             if (this->bodyCount >= int(this->bodyShape.size()))
             {
                 sf::RectangleShape newBodyShape = sf::RectangleShape(sf::Vector2f(16.f, 8.f));
                 newBodyShape.setFillColor(sf::Color::White);
-                newBodyShape.setRotation(90.f);
+                newBodyShape.setOrigin(8.f, 4.f);
                 this->bodyShape.push_back(newBodyShape);
             }
             shape = &this->bodyShape[this->bodyCount];
+            shape->setRotation(90.f);
             this->bodyCount += 1;
-            break; */
+            break;
         case (PLAYER_BODY_RIGHT):
         case (PLAYER_BODY_LEFT):
             if (this->bodyCount >= int(this->bodyShape.size()))
             {
                 sf::RectangleShape newBodyShape = sf::RectangleShape(sf::Vector2f(16.f, 8.f));
                 newBodyShape.setFillColor(sf::Color::White);
+                newBodyShape.setOrigin(8.f, 4.f);
                 this->bodyShape.push_back(newBodyShape);
             }
             shape = &this->bodyShape[this->bodyCount];
+            shape->setRotation(0.f);
             this->bodyCount += 1;
             break;
-
 
         case (ENNEMY):
             if (this->ennemyCount >= int(this->ennemyShape.size()))
             {
                 sf::RectangleShape newEnnemyShape = sf::RectangleShape(sf::Vector2f(16.f, 16.f));
                 newEnnemyShape.setFillColor(sf::Color(150, 50, 250));
+                newEnnemyShape.setOrigin(8.f, 8.f);
                 this->ennemyShape.push_back(newEnnemyShape);
             }
             shape = &this->ennemyShape[this->ennemyCount];
@@ -155,6 +161,7 @@ sf::Shape *SFML::getShapeForEntity(int _entity)
             {
                 sf::RectangleShape newWallShape = sf::RectangleShape(sf::Vector2f(16.f, 16.f));
                 newWallShape.setFillColor(sf::Color(250, 150, 100));
+                newWallShape.setOrigin(8.f, 8.f);
                 this->wallShape.push_back(newWallShape);
             }
             shape = &this->wallShape[this->wallCount];

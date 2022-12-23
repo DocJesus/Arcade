@@ -22,8 +22,8 @@ class Arcade
 
         Arcade()
         {
-            this->graphics.push_back(make_shared<NCurse>());
             this->graphics.push_back(make_shared<SFML>());
+            this->graphics.push_back(make_shared<NCurse>());
             this->graphic_iterator = 0;
 
             this->games.push_back(make_unique<Snake>(60, 60));
